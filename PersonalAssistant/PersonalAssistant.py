@@ -4,6 +4,7 @@ import os
 from .tools.GetCurrentTime import GetCurrentTime
 from .tools.GetUnreadEmails import GetUnreadEmails
 from .tools.FetchDailyMeetingSchedule import FetchDailyMeetingSchedule
+from .tools.SendEmail import SendEmail
 
 # Load environment variables
 load_dotenv()
@@ -15,7 +16,12 @@ class PersonalAssistant(ToolCallingAgent):
         super().__init__(
             name="PersonalAssistant",
             description="./instructions.md",
-            tools=[GetUnreadEmails(), GetCurrentTime(), FetchDailyMeetingSchedule()],
+            tools=[
+                GetUnreadEmails(),
+                GetCurrentTime(),
+                FetchDailyMeetingSchedule(),
+                SendEmail()
+            ],
             model=model
         )
 

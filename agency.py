@@ -56,4 +56,4 @@ manager_agent = CodeAgent(
 if __name__ == "__main__":
     # manager_agent.run("Que dia es hoy? Utiliza el agente PersonalAssistant para obtener la fecha actual.")  # starts the agency in terminal 
     # demo_gradio(manager_agent)  # starts the agency in gradio 
-    GradioUI(manager_agent, file_upload_folder="./data").launch()   
+    GradioUI(manager_agent, file_upload_folder="./data").launch(share=True)   
