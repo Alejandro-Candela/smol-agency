@@ -9,7 +9,7 @@ from .tools.SendEmail import SendEmail
 # Load environment variables
 load_dotenv()
 
-model = HfApiModel(model_id=os.getenv('FAST_MODEL'), token=os.getenv('HG_API_TOKEN'), max_tokens=5000, temperature=0.7)
+model = HfApiModel(model_id=os.getenv('FAST_MODEL'), token=os.getenv('HG_API_TOKEN'), max_tokens=5000, temperature=0.2)
 
 class PersonalAssistant(ToolCallingAgent):
     def __init__(self):
