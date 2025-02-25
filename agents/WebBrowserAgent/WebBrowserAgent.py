@@ -1,4 +1,4 @@
-from smolagents import ToolCallingAgent, HfApiModel
+from smolagents import ToolCallingAgent, HfApiModel, LiteLLMModel
 from dotenv import load_dotenv
 import os
 import argparse
@@ -53,11 +53,8 @@ BROWSER_CONFIG = {
 
 os.makedirs(f"./{BROWSER_CONFIG['downloads_folder']}", exist_ok=True)
 
-model = HfApiModel(
-    model_id=os.getenv("FAST_MODEL"),
-    token=os.getenv("HG_API_TOKEN"),
-    temperature=0.2,
-)
+model = LiteLLMModel(model_id=os.getenv('SMART_MODEL'), token=os.getenv('GEMINI_API_KEY'))
+
 
 args = parse_args()
 text_limit = 100000

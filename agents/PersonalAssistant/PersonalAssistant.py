@@ -1,4 +1,4 @@
-from smolagents import ToolCallingAgent, HfApiModel
+from smolagents import ToolCallingAgent, LiteLLMModel, HfApiModel
 from dotenv import load_dotenv
 import os
 from .tools.GetCurrentTime import GetCurrentTime
@@ -15,7 +15,7 @@ class PersonalAssistant(ToolCallingAgent):
     def __init__(self):
         super().__init__(
             name="personal_assistant",
-            description="./instructions.md",
+            description='instructions.md',
             tools=[
                 GetUnreadEmails(),
                 GetCurrentTime(),

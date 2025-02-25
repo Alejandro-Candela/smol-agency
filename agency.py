@@ -2,6 +2,7 @@ from smolagents import (
     CodeAgent,
     DuckDuckGoSearchTool,
     HfApiModel,
+    LiteLLMModel
 )
 
 from gradio_agent import GradioUI
@@ -19,7 +20,7 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-model = HfApiModel(model_id=os.getenv('FAST_MODEL'), token=os.getenv('HG_API_TOKEN'))
+model = LiteLLMModel(model_id=os.getenv('SMART_MODEL'), token=os.getenv('GEMINI_API_KEY'))
 
 text_limit = 100000
 document_inspection_tool = TextInspectorTool(model, text_limit)
@@ -52,19 +53,20 @@ AUTHORIZED_IMPORTS = [
 ]
 
 # Initialize the agents
-assistant = PersonalAssistant()
-text_webbrowser_agent = WebBrowserAgent()
+personal_assistant = PersonalAssistant()
+webbrowser_agent = WebBrowserAgent()
 
-text_webbrowser_agent.prompt_templates["managed_agent"]["task"] += """You can navigate to .txt online files.
+webbrowser_agent.prompt_templates["managed_agent"]["task"] += """You can navigate to .txt online files.
     If a non-html page is in another format, especially .pdf or a Youtube video, use tool 'inspect_file_as_text' to inspect it.
     Additionally, if after some searching you find out that you need more information to answer the question, you can use `final_answer` with your request for clarification as argument to request for more information."""
 
 # Create the agency with the personal assistant
 manager_agent = CodeAgent(
+    name="Agency Manager",
     model=model,
     max_steps=10,
     add_base_tools = True,
-    managed_agents=[assistant, text_webbrowser_agent],
+    managed_agents=[personal_assistant, webbrowser_agent],
     description='agency_manifesto.md',
     #additional_authorized_imports=AUTHORIZED_IMPORTS,
     tools=[visualizer, document_inspection_tool, MarkdownToExcel()]
