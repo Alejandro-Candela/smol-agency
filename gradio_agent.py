@@ -274,7 +274,7 @@ class GradioUI:
             )
             # If an upload folder is provided, enable the upload feature
             if self.file_upload_folder is not None:
-                upload_file = gr.Files(label="Upload files")
+                upload_file = gr.File(label="Upload file")
                 upload_status = gr.Textbox(label="Upload Status", interactive=False, visible=False)
                 upload_file.change(
                     self.upload_file,

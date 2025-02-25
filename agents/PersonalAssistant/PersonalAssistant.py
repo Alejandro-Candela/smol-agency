@@ -14,7 +14,7 @@ model = HfApiModel(model_id=os.getenv('FAST_MODEL'), token=os.getenv('HG_API_TOK
 class PersonalAssistant(ToolCallingAgent):
     def __init__(self):
         super().__init__(
-            name="PersonalAssistant",
+            name="personal_assistant",
             description="./instructions.md",
             tools=[
                 GetUnreadEmails(),
