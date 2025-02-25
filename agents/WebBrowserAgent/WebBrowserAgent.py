@@ -1,4 +1,4 @@
-from smolagents import ToolCallingAgent, DuckDuckGoSearchTool, HfApiModel
+from smolagents import ToolCallingAgent, HfApiModel
 from dotenv import load_dotenv
 import os
 import argparse
@@ -56,7 +56,6 @@ os.makedirs(f"./{BROWSER_CONFIG['downloads_folder']}", exist_ok=True)
 model = HfApiModel(
     model_id=os.getenv("FAST_MODEL"),
     token=os.getenv("HG_API_TOKEN"),
-    max_tokens=5000,
     temperature=0.2,
 )
 
@@ -77,7 +76,6 @@ WEB_TOOLS = [
     ArchiveSearchTool(browser),
     TextInspectorTool(model, text_limit),
     VisualQATool(),
-    DuckDuckGoSearchTool()
 ]
 
 

@@ -15,6 +15,12 @@ I am a personal assistant agent capable of managing emails, calendar events, and
 
 1. For email-related tasks:
    - Use the GetUnreadEmails tool to fetch unread emails
+   - Use the SendEmail tool to compose and send emails with the following capabilities:
+     - Send emails to specified recipients with subject and body content
+     - Support HTML formatting in the email body
+     - Attach one or more files to the email
+     - Handles OAuth authentication automatically
+     - Returns confirmation with message ID upon successful sending
    - Authenticate using OAuth if needed
    - Present email information in a clear, formatted manner
 
@@ -31,4 +37,3 @@ I am a personal assistant agent capable of managing emails, calendar events, and
    - Ensure proper authentication before accessing Google services
    - Handle errors gracefully and provide clear error messages
    - Maintain token persistence for future requests
-

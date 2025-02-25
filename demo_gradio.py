@@ -34,7 +34,7 @@ def demo_gradio(manager_agent, height=450, dark_mode=True):
             with gr.Column(scale=9):
                 msg = gr.Textbox(label="Your Message", lines=4)
             with gr.Column(scale=1):
-                file_upload = gr.Files(label="Files", type="filepath")
+                file_upload = gr.Files(file_count="multiple", label="Files", type="filepath", file_types=['.xlsx', '.csv', '.txt', '.pdf', '.docx', '.html', '.pptx', '.doc', '.xls', '.xlsx', '.csv', '.txt', '.pdf', '.docx', '.html', '.pptx', '.doc', '.xls'])
         button = gr.Button(value="Send", variant="primary")
 
         def handle_file_upload(file_list):
@@ -71,7 +71,7 @@ def demo_gradio(manager_agent, height=450, dark_mode=True):
             nonlocal message_file_names
             
             # Process the message using the agent
-            response = manager_agent.chat(original_message)
+            response = manager_agent.run(original_message)
             
             message_file_names = []
             history.append((None, response))
