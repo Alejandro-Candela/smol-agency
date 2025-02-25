@@ -3,8 +3,7 @@ from typing import Optional
 from smolagents import Tool
 from smolagents.models import MessageRole, Model
 
-from .mdconvert import MarkdownConverter
-
+from ...utils.mdconvert import MarkdownConverter
 
 class TextInspectorTool(Tool):
     name = "inspect_file_as_text"

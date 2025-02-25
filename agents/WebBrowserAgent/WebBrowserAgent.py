@@ -1,4 +1,4 @@
-from smolagents import ToolCallingAgent, HfApiModel
+from smolagents import ToolCallingAgent, DuckDuckGoSearchTool, HfApiModel
 from dotenv import load_dotenv
 import os
 import argparse
@@ -48,7 +48,7 @@ BROWSER_CONFIG = {
         "headers": {"User-Agent": user_agent},
         "timeout": 300,
     },
-    "serpapi_key": os.getenv("SERPAPI_API_KEY"),
+    "zenrows_key": os.getenv("ZENROWS_API_KEY"),
 }
 
 os.makedirs(f"./{BROWSER_CONFIG['downloads_folder']}", exist_ok=True)
@@ -76,7 +76,8 @@ WEB_TOOLS = [
     FindNextTool(browser),
     ArchiveSearchTool(browser),
     TextInspectorTool(model, text_limit),
-    VisualQATool()
+    VisualQATool(),
+    DuckDuckGoSearchTool()
 ]
 
 

@@ -62,7 +62,7 @@ manager_agent = CodeAgent(
     model=model,
     max_steps=10,
     add_base_tools = False,
-    managed_agents=[assistant, account_manager],
+    managed_agents=[assistant, account_manager, text_webbrowser_agent],
     description='agency_manifesto.md',
     additional_authorized_imports=AUTHORIZED_IMPORTS,
     tools=[visualizer, document_inspection_tool]
@@ -70,5 +70,6 @@ manager_agent = CodeAgent(
 
 if __name__ == "__main__":
     # manager_agent.run("Que dia es hoy? Utiliza el agente PersonalAssistant para obtener la fecha actual.")  # starts the agency in terminal 
-    # demo_gradio(manager_agent)  # starts the agency in gradio 
-    GradioUI(manager_agent, file_upload_folder="./data").launch(share=True)   
+    # demo_gradio(manager_agent)  # starts the agency in gradio
+    GradioUI(manager_agent, file_upload_folder="./data").launch(share=True)
+    

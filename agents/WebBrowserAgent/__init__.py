@@ -1,1 +1,1 @@
-from .WebBrowserAgent import AccountManager
+from .WebBrowserAgent import WebBrowserAgent

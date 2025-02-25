@@ -5,3 +5,5 @@ google-api-python-client==2.118.0
 python-dotenv==1.0.1
 pydantic==2.8.2 
 gradio
+pathvalidate
+beautifulsoup4
