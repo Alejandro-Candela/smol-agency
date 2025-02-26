@@ -18,6 +18,11 @@ const chat = {
         
         // No cargar el historial guardado, ya que queremos empezar con un chat vacío
         // cada vez que se refresca la página
+        
+        // Añadir mensaje de bienvenida cuando se inicia el chat
+        setTimeout(() => {
+            ui.addAgentMessage('Hola! Qué necesitas que haga?');
+        }, 500);
     },
     
     /**
