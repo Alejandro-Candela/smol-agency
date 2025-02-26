@@ -14,15 +14,9 @@ class MarkdownToExcel(Tool):
             "type": "string",
             "description": "The markdown content containing one or more tables",
         },
-        "output_dir": {
-            "type": "string",
-            "description": "Directory where Excel files will be saved",
-            "default": "data/output",
-            "nullable": True
-        },
         "filename_prefix": {
             "type": "string",
-            "description": "Prefix for the generated Excel files",
+            "description": "Prefix for the generated Excel file. It has to be a valid filename related to the content of the markdown file.",
             "default": "table",
             "nullable": True
         }
@@ -54,10 +48,10 @@ class MarkdownToExcel(Tool):
         table_pattern = r'(\|[^\n]+\|\n\|[-:\|\s]+\|\n(?:\|[^\n]+\|\n)+)'
         return re.finditer(table_pattern, markdown_content)
 
-    def forward(self, markdown_content: str, output_dir: str = "output", filename_prefix: str = "table") -> str:
+    def forward(self, markdown_content: str, filename_prefix: str = "table") -> str:
         try:
             # Create output directory if it doesn't exist
-            os.makedirs(output_dir, exist_ok=True)
+            os.makedirs("output", exist_ok=True)
             
             # Find all tables in the markdown content
             tables = list(self._find_tables(markdown_content))
@@ -72,7 +66,7 @@ class MarkdownToExcel(Tool):
                 
                 if df is not None:
                     # Generate output filename
-                    output_file = os.path.join(output_dir, f"{filename_prefix}_{i+1}.xlsx")
+                    output_file = os.path.join("output", f"{filename_prefix}_{i+1}.xlsx")
                     
                     # Save to Excel
                     df.to_excel(output_file, index=False)

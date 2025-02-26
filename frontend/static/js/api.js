@@ -142,5 +142,58 @@ const api = {
             console.error('Error checking agent status:', error);
             return false;
         }
+    },
+    
+    /**
+     * Get information about available files
+     * @returns {Promise} - A promise that resolves with information about the available files
+     */
+    getFiles: async () => {
+        try {
+            const response = await fetch(`${api.baseUrl}/files`, {
+                method: 'GET',
+                headers: api.headers
+            });
+            
+            if (!response.ok) {
+                throw new Error(`Error ${response.status}: ${response.statusText}`);
+            }
+            
+            return await response.json();
+        } catch (error) {
+            console.error('Error getting files:', error);
+            return { files: [] };
+        }
+    },
+    
+    /**
+     * Download a file
+     * @param {string} filePath - The path of the file to download
+     * @returns {Promise} - A promise that resolves when the file download is initiated
+     */
+    downloadFile: (filePath) => {
+        try {
+            // Create a hidden link element
+            const link = document.createElement('a');
+            link.href = `/download?path=${encodeURIComponent(filePath)}`;
+            link.download = filePath.split('/').pop().split('\\').pop(); // Extract filename from path
+            link.style.display = 'none';
+            
+            // Add the link to the document
+            document.body.appendChild(link);
+            
+            // Click the link to initiate the download
+            link.click();
+            
+            // Remove the link from the document
+            setTimeout(() => {
+                document.body.removeChild(link);
+            }, 100);
+            
+            return Promise.resolve();
+        } catch (error) {
+            console.error('Error downloading file:', error);
+            throw error;
+        }
     }
 }; 

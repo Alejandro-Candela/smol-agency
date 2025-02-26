@@ -31,6 +31,22 @@ const ui = {
         ui.elements.messageInput.addEventListener('input', (e) => {
             utils.autoResizeTextarea(e.target);
         });
+
+        // Set up event listener for file generation
+        document.addEventListener('filesGenerated', (event) => {
+            console.log('Files generated event received:', event.detail);
+            ui.updateFilesList();
+        });
+        
+        // Actualizar la lista de archivos periódicamente
+        setInterval(() => {
+            ui.updateFilesList();
+        }, 10000); // Cada 10 segundos
+        
+        // Primera actualización al cargar
+        setTimeout(() => {
+            ui.updateFilesList();
+        }, 1000);
     },
 
     /**
@@ -183,7 +199,55 @@ const ui = {
                                 // Add result to the current tool call and mark as done
                                 if (currentToolCall) {
                                     const resultEl = currentToolCall.querySelector('.tool-result');
-                                    resultEl.innerHTML = utils.markdownToHtml(data.content);
+                                    
+                                    // Process file paths in the result content
+                                    let content = data.content;
+                                    // Look for file paths in the content
+                                    if (content.includes('Successfully converted') && content.includes('.xlsx')) {
+                                        // Extract file paths from the content
+                                        const lines = content.split('\n');
+                                        const filePaths = lines.slice(1).filter(line => line.trim().endsWith('.xlsx'));
+                                        
+                                        // Create download links for Excel files
+                                        if (filePaths.length > 0) {
+                                            const baseContent = lines[0];
+                                            const fileLinks = filePaths.map(path => {
+                                                const fileName = path.split('/').pop().split('\\').pop(); // Handle both Unix and Windows paths
+                                                // Get file size if available
+                                                const fileSize = '(Haga clic para descargar)';
+                                                
+                                                return `<div class="file-link-item">
+                                                    <span class="file-icon">📊</span>
+                                                    <div class="file-info">
+                                                        <span class="file-name">${fileName}</span>
+                                                        <span class="file-path">${path}</span>
+                                                        <span class="file-size">${fileSize}</span>
+                                                    </div>
+                                                    <a href="/download?path=${encodeURIComponent(path)}" 
+                                                       class="file-download-button" 
+                                                       download="${fileName}"
+                                                       target="_blank">Descargar</a>
+                                                </div>`;
+                                            }).join('');
+                                            
+                                            content = `${baseContent}
+                                            <div class="generated-files">
+                                                <h3>Archivos Generados:</h3>
+                                                ${fileLinks}
+                                            </div>`;
+                                            
+                                            // Also trigger a custom event to notify that files were generated
+                                            setTimeout(() => {
+                                                const event = new CustomEvent('filesGenerated', { 
+                                                    detail: { filePaths } 
+                                                });
+                                                document.dispatchEvent(event);
+                                                console.log('Files generated event dispatched:', filePaths);
+                                            }, 500);
+                                        }
+                                    }
+                                    
+                                    resultEl.innerHTML = utils.markdownToHtml(content);
                                     resultEl.classList.remove('hidden');
                                     
                                     const statusEl = currentToolCall.querySelector('.tool-status');
@@ -423,6 +487,76 @@ const ui = {
      */
     scrollToBottom: () => {
         ui.elements.chatbox.scrollTop = ui.elements.chatbox.scrollHeight;
+    },
+
+    /**
+     * Update the list of files in the sidebar
+     */
+    updateFilesList: async () => {
+        try {
+            // Intentar obtener información de archivos desde la API
+            const response = await fetch('/api/files')
+                .then(res => {
+                    if (!res.ok) {
+                        // Si no hay endpoint específico, buscar directamente en directorios comunes
+                        throw new Error('Endpoint not available');
+                    }
+                    return res.json();
+                })
+                .catch(() => {
+                    // Búsqueda manual en directorios comunes usando backend download con path vacío
+                    console.log('Falling back to manual file search');
+                    return fetch('/api/search_files')
+                        .then(res => res.ok ? res.json() : []);
+                });
+            
+            const files = response.files || [];
+            
+            // Si no hay un contenedor de archivos específico, no hacer nada
+            const fileContainerEl = document.getElementById('files-sidebar');
+            if (!fileContainerEl) {
+                return;
+            }
+            
+            // Si no hay archivos, mostrar mensaje
+            if (files.length === 0) {
+                fileContainerEl.innerHTML = `
+                    <div class="no-files-message">
+                        <p>No hay archivos disponibles en la carpeta "output".</p>
+                        <p>Los archivos generados aparecerán aquí automáticamente.</p>
+                        <p><small>Los archivos se eliminarán al refrescar la página.</small></p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Generar HTML para la lista de archivos
+            let html = '<div class="files-list">';
+            html += '<h3>Archivos Disponibles:</h3>';
+            
+            files.forEach(file => {
+                html += `
+                <div class="file-link-item">
+                    <span class="file-icon">${file.icon || '📄'}</span>
+                    <div class="file-info">
+                        <span class="file-name">${file.name}</span>
+                        <span class="file-path">${file.path}</span>
+                        <span class="file-size">${file.size || 'Desconocido'}</span>
+                    </div>
+                    <a href="/download?path=${encodeURIComponent(file.path)}" 
+                       class="file-download-button" 
+                       download="${file.name}"
+                       target="_blank">Descargar</a>
+                </div>
+                `;
+            });
+            
+            html += '</div>';
+            fileContainerEl.innerHTML = html;
+            
+        } catch (error) {
+            console.error('Error updating files list:', error);
+        }
     }
 };
 

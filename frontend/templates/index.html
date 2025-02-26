@@ -58,6 +58,28 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Panel lateral para archivos -->
+            <div class="sidebar-container">
+                <div class="sidebar-header">
+                    <h2>Archivos</h2>
+                    <button id="refresh-files" class="refresh-button" title="Actualizar lista de archivos">
+                        🔄
+                    </button>
+                </div>
+                <div id="files-sidebar" class="sidebar-content">
+                    <!-- La lista de archivos se mostrará aquí -->
+                    <div style="margin-bottom: 15px; padding: 10px; background-color: #f0f8ff; border-radius: 6px; border-left: 3px solid #0066cc;">
+                        <p style="margin: 0; font-size: 14px;">
+                            Solo se muestran los archivos de la carpeta <strong>"output"</strong> del directorio raíz. 
+                            <strong>Estos archivos se eliminarán al refrescar la página.</strong>
+                        </p>
+                    </div>
+                    <div class="loading-files">
+                        <p>Cargando archivos disponibles...</p>
+                    </div>
+                </div>
+            </div>
         </main>
         
         <footer class="app-footer">
