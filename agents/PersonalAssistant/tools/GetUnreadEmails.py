@@ -53,7 +53,7 @@ class GetUnreadEmails(Tool):
             else:
                 try:
                     flow = InstalledAppFlow.from_client_secrets_file(
-                        'credentials.json', SCOPES)
+                        'credentials_web.json', SCOPES)
                     creds = flow.run_local_server(port=0)
                 except Exception as e:
                     return f"Error in authentication flow: {str(e)}"

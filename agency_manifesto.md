@@ -63,7 +63,7 @@ The agency operates in a Python environment with the following key components:
 
     - Uses Google OAuth 2.0 for secure authentication
     - Maintains authentication tokens in token.json
-    - Requires credentials.json for initial setup
+    - Requires credentials_web.json for initial setup
 
 2. API Integration:
 
