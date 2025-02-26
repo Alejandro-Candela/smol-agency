@@ -60,6 +60,13 @@ webbrowser_agent.prompt_templates["managed_agent"]["task"] += """You can navigat
     If a non-html page is in another format, especially .pdf or a Youtube video, use tool 'inspect_file_as_text' to inspect it.
     Additionally, if after some searching you find out that you need more information to answer the question, you can use `final_answer` with your request for clarification as argument to request for more information."""
 
+def read_markdown_file(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        return file.read()
+
+# Load the agency description from the markdown file
+agency_description = read_markdown_file('agency_manifesto.md')
+
 # Create the agency with the personal assistant
 manager_agent = CodeAgent(
     name="Agency Manager",
@@ -67,10 +74,11 @@ manager_agent = CodeAgent(
     max_steps=10,
     add_base_tools = True,
     managed_agents=[personal_assistant, webbrowser_agent],
-    description='agency_manifesto.md',
     #additional_authorized_imports=AUTHORIZED_IMPORTS,
     tools=[visualizer, document_inspection_tool, MarkdownToExcel()]
 )
+
+manager_agent.prompt_templates["system_prompt"] += agency_description
 
 if __name__ == "__main__":
     # manager_agent.run("Que dia es hoy? Utiliza el agente PersonalAssistant para obtener la fecha actual.")  # starts the agency in terminal 
