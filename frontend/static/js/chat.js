@@ -12,26 +12,12 @@ const chat = {
      * Inicializar módulo de chat
      */
     init: () => {
-        // Cargar historial de chat del almacenamiento local si está disponible
-        const savedHistory = localStorage.getItem('chatHistory');
-        if (savedHistory) {
-            try {
-                chat.history = JSON.parse(savedHistory);
-                
-                // Renderizar historial guardado
-                chat.history.forEach(message => {
-                    if (message.role === 'user') {
-                        ui.addUserMessage(message.content, message.files || []);
-                    } else {
-                        ui.addAgentMessage(message.content);
-                    }
-                });
-            } catch (e) {
-                console.error('Error al cargar el historial de chat:', e);
-                localStorage.removeItem('chatHistory');
-                chat.history = [];
-            }
-        }
+        // Eliminar historial de chat al cargar la página
+        localStorage.removeItem('chatHistory');
+        chat.history = [];
+        
+        // No cargar el historial guardado, ya que queremos empezar con un chat vacío
+        // cada vez que se refresca la página
     },
     
     /**

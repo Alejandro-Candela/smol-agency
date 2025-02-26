@@ -81,7 +81,7 @@ class WebBrowserAgent(ToolCallingAgent):
         super().__init__(
             model=model,
             tools=WEB_TOOLS,
-            max_steps=20,
+            max_steps=10,
             verbosity_level=2,
             planning_interval=4,
             name="web_browser_agent",
