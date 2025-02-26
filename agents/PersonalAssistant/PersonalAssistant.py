@@ -19,7 +19,7 @@ def read_markdown_file(file_path):
         return file.read()
 
 # Load the agent description from the markdown file
-personal_assistant_description = read_markdown_file("instructions.md")
+personal_assistant_description = read_markdown_file('instructions.md')
 
 
 class PersonalAssistant(ToolCallingAgent):
