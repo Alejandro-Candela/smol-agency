@@ -565,7 +565,6 @@ class ArchiveSearchTool(Tool):
 class PageUpTool(Tool):
     name = "page_up"
     description = "Scroll the viewport UP one page-length in the current webpage and return the new viewport content."
-    inputs = {}
     output_type = "string"
 
     def __init__(self, browser):
@@ -581,7 +580,6 @@ class PageUpTool(Tool):
 class PageDownTool(Tool):
     name = "page_down"
     description = "Scroll the viewport DOWN one page-length in the current webpage and return the new viewport content."
-    inputs = {}
     output_type = "string"
 
     def __init__(self, browser):
@@ -625,7 +623,6 @@ class FinderTool(Tool):
 class FindNextTool(Tool):
     name = "find_next"
     description = "Scroll the viewport to next occurrence of the search string. This is equivalent to finding the next match in a Ctrl+F search."
-    inputs = {}
     output_type = "string"
 
     def __init__(self, browser):
