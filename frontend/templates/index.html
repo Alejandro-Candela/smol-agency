@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smol Agency - Interfaz de Chat IA</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo-container">
+                <h1>Smol Agency AI</h1>
+            </div>
+            <div class="theme-toggle">
+                <button id="theme-toggle-btn">
+                    <span class="light-icon">☀️</span>
+                    <span class="dark-icon">🌙</span>
+                </button>
+            </div>
+        </header>
+        
+        <main class="main-content">
+            <div class="chat-container">
+                <div id="chatbox" class="chatbox">
+                    <!-- Los mensajes se mostrarán aquí -->
+                </div>
+                
+                <div class="status-bar">
+                    <div id="typing-indicator" class="typing-indicator hidden">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <div id="token-counter" class="token-counter">
+                        <span>Input Tokens: <span id="input-tokens">0</span></span>
+                        <span>|</span>
+                        <span>Output Tokens: <span id="output-tokens">0</span></span>
+                    </div>
+                </div>
+                
+                <div class="input-container">
+                    <div class="file-upload-container">
+                        <label for="file-upload" class="file-upload-label">
+                            <span class="file-icon">📎</span>
+                            <span class="file-text">Subir Archivos</span>
+                        </label>
+                        <input type="file" id="file-upload" class="file-upload-input" multiple>
+                        <div id="file-list" class="file-list"></div>
+                    </div>
+                    
+                    <div class="message-input-container">
+                        <textarea id="message-input" class="message-input" placeholder="Escribe tu mensaje..." rows="1"></textarea>
+                        <button id="send-button" class="send-button">
+                            <span class="send-icon">➤</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="app-footer">
+            <p>© 2025 Smol Agency - Potenciado por Gradio</p>
+        </footer>
+    </div>
+    
+    <!-- Plantillas para contenido dinámico -->
+    <template id="user-message-template">
+        <div class="message user-message">
+            <div class="message-avatar user-avatar">👤</div>
+            <div class="message-content">
+                <div class="message-text"></div>
+                <div class="message-files"></div>
+                <div class="message-time"></div>
+            </div>
+        </div>
+    </template>
+    
+    <template id="agent-message-template">
+        <div class="message agent-message">
+            <div class="message-avatar agent-avatar">🤖</div>
+            <div class="message-content">
+                <div class="message-text"></div>
+                <div class="message-metadata"></div>
+            </div>
+        </div>
+    </template>
+    
+    <template id="tool-call-template">
+        <div class="tool-call">
+            <div class="tool-header">
+                <span class="tool-icon">🛠️</span>
+                <span class="tool-name"></span>
+                <span class="tool-status pending">Ejecutando...</span>
+            </div>
+            <div class="tool-content"></div>
+            <div class="tool-result hidden"></div>
+        </div>
+    </template>
+    
+    <template id="step-number-template">
+        <div class="step-number"></div>
+    </template>
+    
+    <!-- Archivos JavaScript -->
+    <script src="/static/js/utils.js"></script>
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/ui.js"></script>
+    <script src="/static/js/chat.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html> 
