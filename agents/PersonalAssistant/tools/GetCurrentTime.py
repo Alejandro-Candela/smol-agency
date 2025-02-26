@@ -7,7 +7,13 @@ class GetCurrentTime(Tool):
     description = """
     Returns the current time in UTC format, including date and day of the week.
     The time is returned in a formatted string with time, date, and day information."""
-    inputs = {}  # No inputs needed for this tool
+    inputs = {
+        "dummy": {
+            "type": "null",
+            "description": "No inputs needed for this tool",
+            "nullable": True
+        }
+    }
     output_type = "string"
 
     def forward(self):
