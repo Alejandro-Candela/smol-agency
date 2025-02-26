@@ -127,8 +127,8 @@ def stream_to_gradio(
     for step_log in agent.run(task, stream=True, reset=reset_agent_memory, additional_args=additional_args):
         # Track tokens if model provides them
         if getattr(agent.model, "last_input_token_count", None) is not None:
-            total_input_tokens += agent.model.last_input_token_count
-            total_output_tokens += agent.model.last_output_token_count
+            total_input_tokens += agent.model.last_input_token_count / 2
+            total_output_tokens += agent.model.last_output_token_count / 2
             if isinstance(step_log, ActionStep):
                 step_log.input_token_count = agent.model.last_input_token_count
                 step_log.output_token_count = agent.model.last_output_token_count
