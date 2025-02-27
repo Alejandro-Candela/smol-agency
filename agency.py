@@ -15,11 +15,8 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-model = HfApiModel(
-    model_id="Qwen/Qwen2.5-Coder-32B-Instruct",
-    custom_role_conversions={"tool-call": "assistant", "tool-response": "user"},
-    token=os.getenv("HG_API_TOKEN"),
-)
+model = LiteLLMModel(model_id=os.getenv('SMART_MODEL'), token=os.getenv('GEMINI_API_KEY'))
+
 
 text_limit = 100000
 document_inspection_tool = TextInspectorTool(model, text_limit)
@@ -76,12 +73,12 @@ manager_agent = CodeAgent(
     model=model,
     max_steps=10,
     add_base_tools=True,
-    managed_agents=[personal_assistant, webbrowser_agent],
+    #managed_agents=[personal_assistant, webbrowser_agent],
     additional_authorized_imports=AUTHORIZED_IMPORTS,
     tools=[visualizer, document_inspection_tool, MarkdownToExcel()],
 )
 
-manager_agent.prompt_templates["system_prompt"] += agency_description
+#manager_agent.prompt_templates["system_prompt"] += agency_description
 
 if __name__ == "__main__":
     # manager_agent.run("Que dia es hoy? Utiliza el agente PersonalAssistant para obtener la fecha actual.")  # starts the agency in terminal

@@ -53,8 +53,12 @@ BROWSER_CONFIG = {
 
 os.makedirs(f"./{BROWSER_CONFIG['downloads_folder']}", exist_ok=True)
 
-model = LiteLLMModel(model_id=os.getenv('SMART_MODEL'), token=os.getenv('GEMINI_API_KEY'))
-
+model = HfApiModel(
+    model_id="Qwen/Qwen2.5-Coder-32B-Instruct",
+    custom_role_conversions={"tool-call": "assistant", "tool-response": "user"},
+    token=os.getenv("HG_API_TOKEN"),
+    max_tokens=8192,
+)
 
 args = parse_args()
 text_limit = 100000
