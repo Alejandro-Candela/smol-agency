@@ -849,4 +849,110 @@ code {
         border-top: 1px solid var(--border-color);
         max-height: 300px;
     }
+}
+
+/* Custom scrollbar styling */
+/* Webkit browsers (Chrome, Safari, newer Edge) */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--bg-primary);
+    border-radius: var(--border-radius-lg);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: var(--border-radius-lg);
+    border: 2px solid var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent-color);
+}
+
+::-webkit-scrollbar-corner {
+    background-color: var(--bg-primary);
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) var(--bg-primary);
+}
+
+/* Specific scrollbar for chatbox to ensure it's visible */
+.chatbox::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chatbox::-webkit-scrollbar-track {
+    background-color: var(--bg-primary);
+    border-radius: var(--border-radius-lg);
+}
+
+.chatbox::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: var(--border-radius-lg);
+}
+
+.chatbox::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent-color);
+}
+
+/* Override the #files-container scrollbar to match theme */
+#files-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+#files-container::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+    border-radius: var(--border-radius-lg);
+}
+
+#files-container::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: var(--border-radius-lg);
+}
+
+#files-container::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}
+
+/* Dark theme specific scrollbar adjustments */
+[data-theme="dark"] * {
+    scrollbar-color: var(--border-color) var(--bg-primary);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+    background-color: var(--bg-primary);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border: 2px solid var(--bg-primary);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent-color);
+}
+
+/* Light theme specific scrollbar adjustments */
+[data-theme="light"] * {
+    scrollbar-color: var(--border-color) var(--bg-primary);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-track {
+    background-color: var(--bg-primary);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border: 2px solid var(--bg-primary);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent-color);
 } 
