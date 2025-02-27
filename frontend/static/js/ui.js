@@ -522,7 +522,6 @@ const ui = {
             if (files.length === 0) {
                 fileContainerEl.innerHTML = `
                     <div class="no-files-message">
-                        <p>No hay archivos disponibles en la carpeta "output".</p>
                         <p>Los archivos generados aparecerán aquí automáticamente.</p>
                         <p><small>Los archivos se eliminarán al refrescar la página.</small></p>
                     </div>
