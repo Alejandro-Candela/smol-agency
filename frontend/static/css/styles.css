@@ -679,16 +679,21 @@ code {
     border: 1px solid #e0e0ff;
     transition: transform 0.2s, box-shadow 0.2s;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
 }
 
 .file-link-item:hover {
     transform: translateY(-2px);
     box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    background: linear-gradient(to right, #e9f2ff, #f5f9ff);
 }
 
 .file-icon {
     margin-right: 10px;
     font-size: 24px;
+    color: var(--accent-color);
 }
 
 .file-info {
@@ -699,7 +704,7 @@ code {
 
 .file-name {
     font-weight: 500;
-    color: #0066cc;
+    color: var(--accent-color);
     margin-bottom: 3px;
 }
 
@@ -720,21 +725,7 @@ code {
 }
 
 .file-download-button {
-    display: inline-block;
-    padding: 8px 12px;
-    background-color: #0066cc;
-    color: white;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    transition: background-color 0.2s;
-    white-space: nowrap;
-}
-
-.file-download-button:hover {
-    background-color: #0055aa;
-    text-decoration: none;
+    display: none;
 }
 
 /* Estilos para el panel lateral de archivos */

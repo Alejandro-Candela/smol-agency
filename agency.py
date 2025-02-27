@@ -73,7 +73,7 @@ manager_agent = CodeAgent(
     model=model,
     max_steps=10,
     add_base_tools=True,
-    #managed_agents=[personal_assistant, webbrowser_agent],
+    managed_agents=[personal_assistant],
     additional_authorized_imports=AUTHORIZED_IMPORTS,
     tools=[visualizer, document_inspection_tool, MarkdownToExcel()],
 )
