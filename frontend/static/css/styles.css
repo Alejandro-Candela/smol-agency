@@ -762,6 +762,8 @@ code {
     flex-direction: column;
     background-color: var(--bg-secondary);
     overflow-x: hidden;
+    border-radius: var(--border-radius-md);
+    margin-left: 20px;
 }
 
 .sidebar-header {
