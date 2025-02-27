@@ -193,7 +193,7 @@ body {
 }
 
 .input-container {
-    padding: var(--spacing-md);
+    padding: var(--spacing-md) 0;
     border-top: 1px solid var(--border-color);
 }
 
@@ -850,6 +850,7 @@ code {
         border-left: none;
         border-top: 1px solid var(--border-color);
         max-height: 300px;
+        margin-left: 0;
     }
 }
 
