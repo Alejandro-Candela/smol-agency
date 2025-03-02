@@ -305,6 +305,7 @@ body {
 /* Message styling */
 .message {
     display: flex;
+    align-items: baseline;
     gap: var(--spacing-md);
     padding: var(--spacing-md);
     border-radius: var(--border-radius-md);
